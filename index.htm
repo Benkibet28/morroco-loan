@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morocco Loan · Register & Pay</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #0b1a2e 0%, #1b2f44 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .card {
+            max-width: 950px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 2.5rem;
+            border: 1px solid rgba(255, 215, 0, 0.25);
+            box-shadow: 0 25px 50px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 215, 0, 0.1) inset;
+            padding: 2rem 2rem 2.5rem;
+            transition: all 0.2s;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(to right, #f5e7a3, #d4af37, #f9f1c0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+            margin-bottom: 0.4rem;
+        }
+
+        .header .sub {
+            color: #b0c4de;
+            font-size: 1rem;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .header .sub span {
+            background: #d4af37;
+            color: #0a0f17;
+            font-weight: 600;
+            padding: 0.2rem 0.9rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            letter-spacing: 0.3px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 1.8rem;
+            margin-top: 0.8rem;
+        }
+
+        @media (max-width: 720px) {
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 1.8rem;
+            }
+            .card {
+                padding: 1.6rem;
+                border-radius: 2rem;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* ----- registration form ----- */
+        .reg-section {
+            background: rgba(10, 20, 30, 0.6);
+            border-radius: 1.8rem;
+            padding: 1.8rem 1.6rem 2rem;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 8px 20px -8px #00000055;
+        }
+
+        .reg-section h2 {
+            color: #f5e7a3;
+            font-size: 1.4rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 1.4rem;
+            letter-spacing: -0.01em;
+        }
+
+        .reg-section h2 i {
+            font-size: 1.4rem;
+            color: #d4af37;
+            font-style: normal;
+        }
+
+        .input-group {
+            margin-bottom: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .input-group label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #cbd5e1;
+            margin-left: 0.2rem;
+        }
+
+        .input-group input {
+            background: #0b121c;
+            border: 1.5px solid #2a3a4e;
+            border-radius: 1.2rem;
+            padding: 0.85rem 1.2rem;
+            font-size: 1rem;
+            color: #f0f4fa;
+            outline: none;
+            transition: 0.2s;
+            width: 100%;
+        }
+
+        .input-group input:focus {
+            border-color: #d4af37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+            background: #0e1622;
+        }
+
+        .input-group input::placeholder {
+            color: #5d6f85;
+            font-weight: 300;
+            font-size: 0.9rem;
+        }
+
+        .btn-register {
+            width: 100%;
+            background: linear-gradient(135deg, #d4af37, #b8942c);
+            border: none;
+            border-radius: 2rem;
+            padding: 0.95rem 1rem;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #0a0f17;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 1rem;
+            box-shadow: 0 8px 18px -6px #d4af37aa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-register:hover {
+            transform: scale(1.01);
+            background: linear-gradient(135deg, #e5c04e, #c9a435);
+            box-shadow: 0 12px 24px -8px #d4af37cc;
+        }
+
+        .btn-register:active {
+            transform: scale(0.98);
+        }
+
+        .btn-register:disabled {
+            opacity: 0.6;
+            transform: none;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .info-message {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            text-align: center;
+            min-height: 2rem;
+            font-weight: 400;
+            transition: 0.2s;
+        }
+
+        .success-msg {
+            color: #86efac;
+            font-weight: 500;
+        }
+
+        .error-msg {
+            color: #fca5a5;
+            font-weight: 500;
+        }
+
+        /* ----- payment section (paybill) ----- */
+        .pay-section {
+            background: rgba(10, 20, 30, 0.6);
+            border-radius: 1.8rem;
+            padding: 1.8rem 1.6rem 2rem;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 8px 20px -8px #00000055;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pay-section h2 {
+            color: #f5e7a3;
+            font-size: 1.4rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 1.4rem;
+            letter-spacing: -0.01em;
+        }
+
+        .pay-section h2 i {
+            font-size: 1.4rem;
+            color: #d4af37;
+            font-style: normal;
+        }
+
+        .paybill-details {
+            background: #0b121c;
+            border-radius: 1.4rem;
+            padding: 1.2rem 1.2rem;
+            border: 1px solid #2a3a4e;
+            margin-bottom: 1.4rem;
+        }
+
+        .paybill-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 0;
+            border-bottom: 1px dashed #2e4057;
+        }
+
+        .paybill-row:last-child {
+            border-bottom: none;
+        }
+
+        .paybill-label {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .paybill-value {
+            font-family: 'SF Mono', 'Menlo', monospace;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #d4af37;
+            letter-spacing: 0.5px;
+            background: #1a2636;
+            padding: 0.3rem 0.8rem;
+            border-radius: 2rem;
+            border: 1px solid #3a4d64;
+        }
+
+        .account-value {
+            font-family: 'SF Mono', 'Menlo', monospace;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #f5e7a3;
+            background: #1a2636;
+            padding: 0.3rem 0.8rem;
+            border-radius: 2rem;
+            border: 1px solid #3a4d64;
+        }
+
+        .amount-highlight {
+            background: rgba(212, 175, 55, 0.15);
+            border-radius: 1.2rem;
+            padding: 0.8rem 1rem;
+            text-align: center;
+            margin-bottom: 1.6rem;
+            border: 1px solid #d4af3744;
+        }
+
+        .amount-highlight .kes {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #d4af37;
+            line-height: 1.2;
+        }
+
+        .amount-highlight .note {
+            font-size: 0.8rem;
+            color: #b0c4de;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-pay {
+            background: transparent;
+            border: 2px solid #d4af37;
+            border-radius: 2rem;
+            padding: 0.9rem 1rem;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #d4af37;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            margin-top: 0.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-pay:hover:not(:disabled) {
+            background: #d4af37;
+            color: #0a0f17;
+            box-shadow: 0 8px 18px -6px #d4af37aa;
+        }
+
+        .btn-pay:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+            border-color: #6b7a8c;
+            color: #6b7a8c;
+        }
+
+        .pay-info {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .pay-info strong {
+            color: #d4af37;
+        }
+
+        .payment-status {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            text-align: center;
+            min-height: 1.8rem;
+            transition: 0.2s;
+        }
+
+        .footer-note {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #64748b;
+            letter-spacing: 0.3px;
+            border-top: 1px solid #1f2e3e;
+            padding-top: 1.2rem;
+        }
+
+        .footer-note i {
+            font-style: normal;
+            color: #d4af37;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <h1>Morocco Loan</h1>
+            <div class="sub">
+                Register & activate your loan account
+                <span>🇲🇦</span>
+            </div>
+        </div>
+
+        <div class="grid">
+            <!-- LEFT: REGISTRATION FORM -->
+            <div class="reg-section">
+                <h2>
+                    <i>📝</i> Create account
+                </h2>
+                <form id="registerForm" onsubmit="return false;">
+                    <div class="input-group">
+                        <label for="fullName">Full name</label>
+                        <input type="text" id="fullName" placeholder="e.g. Amina Benali" autocomplete="name">
+                    </div>
+                    <div class="input-group">
+                        <label for="email">Email address</label>
+                        <input type="email" id="email" placeholder="you@example.com" autocomplete="email">
+                    </div>
+                    <div class="input-group">
+                        <label for="phone">Phone number</label>
+                        <input type="tel" id="phone" placeholder="+212 6XX XXX XXX" autocomplete="tel">
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Create a strong password" autocomplete="new-password">
+                    </div>
+                    <button type="submit" class="btn-register" id="registerBtn">
+                        <span>✧</span> Register now <span>✧</span>
+                    </button>
+                    <div id="registerMessage" class="info-message"></div>
+                </form>
+            </div>
+
+            <!-- RIGHT: PAYMENT (PAYBILL) -->
+            <div class="pay-section">
+                <h2>
+                    <i>💳</i> Payment via Paybill
+                </h2>
+
+                <div class="paybill-details">
+                    <div class="paybill-row">
+                        <span class="paybill-label">Paybill number</span>
+                        <span class="paybill-value">400200</span>
+                    </div>
+                    <div class="paybill-row">
+                        <span class="paybill-label">Account number</span>
+                        <span class="account-value">011023603430</span>
+                    </div>
+                </div>
+
+                <div class="amount-highlight">
+                    <div class="kes">KES 500</div>
+                    <div class="note">one-time loan processing fee</div>
+                </div>
+
+                <button class="btn-pay" id="payNowBtn" disabled>
+                    <span>⚡</span> Pay 500 via Paybill <span>⚡</span>
+                </button>
+
+                <div class="pay-info">
+                    <strong>Step 1:</strong> Register your account (left)<br>
+                    <strong>Step 2:</strong> Pay KES 500 to Paybill <strong>400200</strong><br>
+                    Account: <strong>011023603430</strong>
+                </div>
+
+                <div id="paymentStatus" class="payment-status"></div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <i>Morocco Loan</i> · registration required before payment · secure application
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // ---------- DOM elements ----------
+            const fullNameInput = document.getElementById('fullName');
+            const emailInput = document.getElementById('email');
+            const phoneInput = document.getElementById('phone');
+            const passwordInput = document.getElementById('password');
+            const registerBtn = document.getElementById('registerBtn');
+            const registerMessage = document.getElementById('registerMessage');
+            const payNowBtn = document.getElementById('payNowBtn');
+            const paymentStatus = document.getElementById('paymentStatus');
+
+            // State
+            let isRegistered = false;
+            let registeredUser = null;   // store name / email
+
+            // ---------- helper: show message ----------
+            function setRegisterMessage(text, type = 'info') {
+                registerMessage.textContent = text;
+                registerMessage.className = 'info-message ' + (type === 'success' ? 'success-msg' : type === 'error' ? 'error-msg' : '');
+            }
+
+            function setPaymentStatus(text, type = 'info') {
+                paymentStatus.textContent = text;
+                if (type === 'success') {
+                    paymentStatus.style.color = '#86efac';
+                } else if (type === 'error') {
+                    paymentStatus.style.color = '#fca5a5';
+                } else if (type === 'info') {
+                    paymentStatus.style.color = '#94a3b8';
+                } else {
+                    paymentStatus.style.color = '#94a3b8';
+                }
+            }
+
+            // ---------- validation ----------
+            function validateRegistration(data) {
+                const { name, email, phone, password } = data;
+
+                if (!name || name.trim().length < 2) {
+                    return { valid: false, message: 'Please enter your full name (min 2 characters).' };
+                }
+
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!email || !emailRegex.test(email.trim())) {
+                    return { valid: false, message: 'Please enter a valid email address.' };
+                }
+
+                // phone: at least 8 digits
+                const phoneClean = phone.replace(/\D/g, '');
+                if (!phone || phoneClean.length < 8) {
+                    return { valid: false, message: 'Please enter a valid phone number (min 8 digits).' };
+                }
+
+                if (!password || password.length < 6) {
+                    return { valid: false, message: 'Password must be at least 6 characters.' };
+                }
+
+                return { valid: true, message: 'OK' };
+            }
+
+            // ---------- enable / disable pay button ----------
+            function updatePayButtonState() {
+                if (isRegistered && registeredUser) {
+                    payNowBtn.disabled = false;
+                    setPaymentStatus('✅ You can now proceed with payment.', 'info');
+                } else {
+                    payNowBtn.disabled = true;
+                    setPaymentStatus('⏳ Please register first to enable payment.', 'info');
+                }
+            }
+
+            // ---------- registration handler ----------
+            function handleRegister(e) {
+                e.preventDefault();
+
+                const name = fullNameInput.value.trim();
+                const email = emailInput.value.trim();
+                const phone = phoneInput.value.trim();
+                const password = passwordInput.value; // not trimmed
+
+                const validation = validateRegistration({ name, email, phone, password });
+
+                if (!validation.valid) {
+                    setRegisterMessage(validation.message, 'error');
+                    return;
+                }
+
+                // Simulate successful registration (in real app you'd send to backend)
+                isRegistered = true;
+                registeredUser = { name, email, phone };
+
+                // UI feedback
+                setRegisterMessage(`✓ Account created for ${name}. You can now pay.`, 'success');
+                
+                // Disable form? We keep it but maybe disable button to prevent double registration
+                registerBtn.disabled = true;
+                registerBtn.innerHTML = '<span>✓</span> Registered <span>✓</span>';
+                
+                // Optionally disable inputs (but user might want to change? we lock them for consistency)
+                fullNameInput.disabled = true;
+                emailInput.disabled = true;
+                phoneInput.disabled = true;
+                passwordInput.disabled = true;
+
+                // Enable pay button
+                updatePayButtonState();
+
+                // Also show a hint in payment section
+                setPaymentStatus(`Welcome, ${name.split(' ')[0]}! Click "Pay 500 via Paybill" to continue.`, 'success');
+            }
+
+            // ---------- pay simulation ----------
+            function handlePayment() {
+                if (!isRegistered || !registeredUser) {
+                    setPaymentStatus('❌ You must register first.', 'error');
+                    return;
+                }
+
+                // Simulate paybill payment (in real app you'd redirect or integrate with M-Pesa API)
+                const payBtn = payNowBtn;
+                payBtn.disabled = true;
+                payBtn.innerHTML = '<span>⏳</span> Processing payment ...';
+
+                setPaymentStatus('⏳ Connecting to Paybill 400200 ...', 'info');
+
+                // Simulate network request
+                setTimeout(() => {
+                    // 95% success rate for demo
+                    const success = Math.random() < 0.95;
+
+                    if (success) {
+                        setPaymentStatus(
+                            `✅ Payment of KES 500 to Paybill 400200 (Acc: 011023603430) successful! Your Morocco loan application is now active.`,
+                            'success'
+                        );
+                        payBtn.innerHTML = '<span>✓</span> Payment complete <span>✓</span>';
+                        payBtn.
